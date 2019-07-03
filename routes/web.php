@@ -19,17 +19,8 @@ Route::get('/home',function() {
     return "hello world";
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/tasks',function(){
     return "Hello World";
-})->middleware('auth');
-
-Route::get('/home', function () {
-
-    return "hello world";
 });
 Route::get('/index',function(){ 
     $title = "create form";
@@ -61,6 +52,11 @@ Route::post('/tasks/store',function(Illuminate\Http\Request $request){
     // $task->detail = $request->detail;
     // $task->status = $request->status;
     // $task->save();
+    $validation = $request->validate([
+        'type' => 'required',
+        'name' => 'required|max:255',
+        'status' => 'required',
+        ]);
     \App\Task::create($request->all());
     return redirect()->back()->with('success','Created Successfully !!');
 });

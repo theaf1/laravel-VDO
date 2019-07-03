@@ -9,6 +9,16 @@
             {{ $message }}
         </div>
     @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</Li
+            @endforeach
+        </ul>
+        </div>
+    @endif
     <form action="{{ url('/tasks/store') }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token()}}">
             <label for="type_id">Type :</label>
