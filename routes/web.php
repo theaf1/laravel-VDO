@@ -60,3 +60,8 @@ Route::post('/tasks/store',function(Illuminate\Http\Request $request){
     \App\Task::create($request->all());
     return redirect()->back()->with('success','Created Successfully !!');
 });
+
+Route::get('/tasks/{id}',function($id){
+    $task = App\Task::find($id);
+    return view('tasks.edit')->with(['task' => $task]);
+});
