@@ -26,10 +26,10 @@ extends('layouts.app')
         <!-- <select name="type"> -->
         <option value="" hidden></option>
         @foreach($types as $type)
-            @if( old('type_id') == $type['id'])
-            <option value="{{ $type['name'] }}" selected>{{ $type['name'] }}</option>
+            @if( old('type_id',$task->type) == $type['id'])
+            <option value="{{ $type['id'] }}" selected>{{ $type['name'] }}</option>
             @else
-            <option value="{{ $type['name'] }}">{{ $type['name'] }}</option>
+            <option value="{{ $type['id'] }}">{{ $type['name'] }}</option>
             @endif
         @endforeach
         </select>
@@ -40,7 +40,7 @@ extends('layouts.app')
     <label class="text-inline">Status :</label>
         <label class="radio-inline">
         @foreach($statuses as $status)
-            @if( old('status',-1) == $status['id'])
+            @if( old('status', $task->status) == $status['id'])
             <input type="radio" name="status"  value="{{ $status['id']}}" checked >{{ $status['name']}}
             </label>
             @else

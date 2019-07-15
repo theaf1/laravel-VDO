@@ -27,9 +27,9 @@
         <option value="" hidden></option>
         @foreach($types as $type)
             @if( old('type_id') == $type['id'])
-            <option value="{{ $type['name'] }}" selected>{{ $type['name'] }}</option>
+            <option value="{{ $type['id'] }}" selected>{{ $type['name'] }}</option>
             @else
-            <option value="{{ $type['name'] }}">{{ $type['name'] }}</option>
+            <option value="{{ $type['id'] }}">{{ $type['name'] }}</option>
             @endif
         @endforeach
         </select>
@@ -41,11 +41,9 @@
         <label class="radio-inline">
         @foreach($statuses as $status)
             @if( old('status',-1) == $status['id'])
-            <input type="radio" name="status"  value="{{ $status['id']}}" checked >{{ $status['name']}}
-            </label>
+                <input type="radio" name="status"  value="{{ $status['id']}}" checked >{{ $status['name']}}</label>
             @else
-            <input type="radio" name="status"  value="{{ $status['id']}}" >{{ $status['name']}}
-            </label>
+                <input type="radio" name="status"  value="{{ $status['id']}}" >{{ $status['name']}}</label>
             @endif
         @endforeach
     <button type="submit" class="btn btn-success">Submit</button>

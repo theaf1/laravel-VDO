@@ -34,9 +34,9 @@ route::post('/store',function(Illuminate\Http\Request $request){
     return "Login Success";
 });
 Route::get('tasks/create', function(){
-    // $types[] = [ 'id' => 1 , 'name' => 'Support' ];
-    // $types[] = [ 'id' => 2 , 'name' => 'Mantain' ];
-    // $types[] = [ 'id' => 3 , 'name' => 'Change Requirement' ];
+    $types[] = [ 'id' => 1 , 'name' => 'Support' ];
+    $types[] = [ 'id' => 2 , 'name' => 'Mantain' ];
+    $types[] = [ 'id' => 3 , 'name' => 'Change Requirement' ];
 
     $types=\App\Type::all();
     $statuses[] = [ 'id' => 0 , 'name' => 'Incomplete' ];
@@ -53,7 +53,7 @@ Route::post('/tasks/store',function(Illuminate\Http\Request $request){
     // $task->status = $request->status;
     // $task->save();
     $validation = $request->validate([
-        'type' => 'required',
+        'type_id' => 'required',
         'name' => 'required|max:255',
         'status' => 'required',
         ]);
@@ -62,6 +62,14 @@ Route::post('/tasks/store',function(Illuminate\Http\Request $request){
 });
 
 Route::get('/tasks/{id}',function($id){
+    $types[] = [ 'id' => 1 , 'name' => 'Support' ];
+    $types[] = [ 'id' => 2 , 'name' => 'Mantain' ];
+    $types[] = [ 'id' => 3 , 'name' => 'Change Requirement' ];
+
+    $statuses[] = [ 'id' => 0 , 'name' => 'Incomplete' ];
+    $statuses[] = [ 'id' => 1 , 'name' => 'Completed' ];
+
     $task = App\Task::find($id);
-    return view('tasks.edit')->with(['task' => $task]);
+    return view('tasks.edit')->with(['types'=> $types, 'statuses'=> $statuses, 'task'=> $task]);
+    // return $task;
 });
