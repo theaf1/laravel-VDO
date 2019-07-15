@@ -1,4 +1,4 @@
-extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'task')
 
@@ -19,14 +19,15 @@ extends('layouts.app')
         </ul>
         </div>
     @endif
-    <form action="{{ url('/tasks/store') }}" method="POST">
+    <form action="{{ url('/tasks',$task->id) }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token()}}">
+        <input type="hidden" name="_method" value="PUT">
             <label for="type_id">Type :</label>
             <select class="form-control" name="type_id">
         <!-- <select name="type"> -->
         <option value="" hidden></option>
         @foreach($types as $type)
-            @if( old('type_id',$task->type) == $type['id'])
+            @if( old('type_id',$task->type_id) == $type['id'])
             <option value="{{ $type['id'] }}" selected>{{ $type['name'] }}</option>
             @else
             <option value="{{ $type['id'] }}">{{ $type['name'] }}</option>
@@ -34,9 +35,9 @@ extends('layouts.app')
         @endforeach
         </select>
     <label for="name">Name : </label>
-        <input type="text" class="form-control" name="name" value="{{ old('name') }}" />
+        <input type="text" class="form-control" name="name" value="{{ old('name', $task->name) }}" />
     <label for="detail">Detail : </label>
-        <textarea type="text" class="form-control" rows="5" name="detail" value="" >{{ old('detail') }}</textarea>
+        <textarea type="text" class="form-control" rows="5" name="detail" value="" >{{ old('detail', $task->detail) }}</textarea>
     <label class="text-inline">Status :</label>
         <label class="radio-inline">
         @foreach($statuses as $status)

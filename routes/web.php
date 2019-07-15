@@ -73,3 +73,13 @@ Route::get('/tasks/{id}',function($id){
     return view('tasks.edit')->with(['types'=> $types, 'statuses'=> $statuses, 'task'=> $task]);
     // return $task;
 });
+
+Route::put('/tasks/{id}',function(Illuminate\Http\Request $request,$id){
+    $validation = $request->validate([
+        'type_id' => 'required',
+        'name' => 'required|max:255',
+        'status' => 'required',
+        ]);
+    \App\Task::find($id)->update($request->all());
+    return redirect()->back()->with('success','Edited Successfully !!');
+});
